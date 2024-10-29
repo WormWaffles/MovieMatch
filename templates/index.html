@@ -1,0 +1,99 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+<main class="flex flex-col items-center py-20">
+    <article id="movie-card"
+        class="relative w-80 overflow-hidden rounded-lg shadow transition transform hover:scale-105 mb-6">
+        <img alt="" id="movie-poster" class="h-full w-full object-cover" />
+        <div class="absolute bottom-0 inset-x-0 flex flex-col p-4 bg-gradient-to-t from-black to-transparent">
+            <time id="movie-release-date" class="block text-xs text-gray-300"></time>
+            <h3 id="movie-title" class="mt-1 text-xl font-semibold text-white"></h3>
+            <p id="movie-overview-text" class="mt-2 text-sm text-gray-300"></p>
+            <div class="flex justify-between mt-4">
+                <button
+                    class="w-1/2 mr-1 py-2 text-center text-red-500 border border-red-500 rounded-lg hover:bg-red-500 hover:text-white transition"
+                    onclick="skipMovie()">Skip</button>
+                <button
+                    class="w-1/2 ml-1 py-2 text-center text-green-500 border border-green-500 rounded-lg hover:bg-green-500 hover:text-white transition"
+                    onclick="likeMovie()">Like</button>
+            </div>
+        </div>
+    </article>
+
+    <script>
+        const movies = {{ movies| tojson }}; // Assuming you pass the movies list as JSON
+        let currentIndex = 0;
+        let isExpanded = false; // Track if the description is expanded
+
+        function showMovie(index) {
+            const movie = movies[index];
+            document.getElementById('movie-poster').src = movie.poster;
+            document.getElementById('movie-title').innerText = movie.title;
+            document.getElementById('movie-release-date').innerText = movie.release_date;
+
+            // Set overview with a length limit
+            const overviewText = movie.overview;
+            const maxLength = 100; // Set max length for the description
+            if (overviewText.length > maxLength) {
+                document.getElementById('movie-overview-text').innerHTML = isExpanded ?
+                    overviewText + ' <button id="toggle-description" class="text-blue-300" onclick="toggleDescription()">Less</button>' :
+                    overviewText.slice(0, maxLength) + '... <button id="toggle-description" class="text-blue-300" onclick="toggleDescription()">More</button>';
+            } else {
+                document.getElementById('movie-overview-text').innerText = overviewText;
+            }
+        }
+
+        function toggleDescription() {
+            isExpanded = !isExpanded; // Toggle the expanded state
+            showMovie(currentIndex); // Update the movie display
+        }
+
+        function skipMovie() {
+            currentIndex++;
+            if (currentIndex >= movies.length) {
+                currentIndex = 0; // Loop back to the start
+            }
+            isExpanded = false; // Reset expansion state for the new movie
+            showMovie(currentIndex);
+        }
+
+        function likeMovie() {
+            const movieTitle = movies[currentIndex].title; // Get the current movie title
+            console.log('Liked:', movieTitle);
+
+            // Call the Flask function by making a POST request
+            sendLikeToServer(movieTitle, movies[currentIndex].overview, movies[currentIndex].poster)
+                .then(response => {
+                    if (response.redirected) {
+                        // Handle redirection to login (if needed)
+                        window.location.href = response.url; // Redirect to login page
+                    } else if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    console.log(data.message); // Log the success message from the server
+                    skipMovie(); // Move to the next movie after liking
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function sendLikeToServer(movieTitle, movieDescription, moviePoster) {
+            return fetch('/like', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: movieTitle, description: movieDescription, poster: moviePoster }) // Send the movie title as JSON
+            });
+        }
+
+
+        // Initial display
+        showMovie(currentIndex);
+    </script>
+</main>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">Create an Account</h2>
+
+        <!-- Registration Form -->
+        <form action="#" method="POST" class="space-y-4">
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                <input type="text" id="name" name="name" required
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" name="email" required
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" required
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="w-full py-2 mt-4 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition">
+                Register
+            </button>
+        </form>
+
+        <!-- Link to Login -->
+        <p class="mt-4 text-center text-sm text-gray-500">
+            Already have an account?
+            <a href="/login" class="text-blue-600 hover:text-blue-700 font-medium">Log in</a>
+        </p>
+    </div>
+
+</div>
+{% endblock %}

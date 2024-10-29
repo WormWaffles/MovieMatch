@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MovieMatch</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-semibold text-gray-900 hover:text-gray-600 transition">MovieMatch</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/" class="text-gray-700 hover:text-gray-900 transition">Home</a>
+                <a href="/likes" class="text-gray-700 hover:text-gray-900 transition">Likes</a>
+                <a href="/profile" class="text-gray-700 hover:text-gray-900 transition">Profile</a>
+            </nav>
+            <button class="md:hidden text-gray-700 hover:text-gray-900 transition focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    {% block body %}{% endblock %}  
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-8">
+        <div class="max-w-screen-xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+            <a href="/" class="text-lg font-semibold text-gray-900 hover:text-gray-600 transition">MovieMatch</a>
+            <nav class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="text-sm text-gray-700 hover:text-gray-900 transition">Privacy Policy</a>
+                <a href="#" class="text-sm text-gray-700 hover:text-gray-900 transition">Terms of Service</a>
+                <a href="#" class="text-sm text-gray-700 hover:text-gray-900 transition">Support</a>
+                <a href="#" class="text-sm text-gray-700 hover:text-gray-900 transition">Contact Us</a>
+            </nav>
+            <p class="text-xs text-gray-500 mt-4 md:mt-0">&copy; 2024 MovieMatch. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

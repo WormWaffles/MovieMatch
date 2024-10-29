@@ -1,0 +1,22 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+<!-- Main Content -->
+<main class="flex-grow">
+    <div class="max-w-screen-md mx-auto py-8 px-4">
+        <h1 class="text-2xl font-bold text-gray-900 mb-6">Your Likes</h1>
+        <!-- Liked items go here -->
+        {% for movie in liked_movies %}
+        <div class="mb-4">
+            <article class="flex items-start space-x-4 p-4 bg-white rounded-lg shadow hover:shadow-md transition">
+                <img src="{{ movie.poster }}" alt="Movie Thumbnail" class="w-24 h-24 object-cover rounded-lg" />
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-900">{{ movie.title }}</h2>
+                    <p class="mt-1 text-sm text-gray-500">{{ movie.description }}</p>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
