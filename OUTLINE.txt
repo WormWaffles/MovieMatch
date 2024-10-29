@@ -1,0 +1,39 @@
+MovieMatch Program Overview
+
+This program is a web-based application designed for users to browse, like, and skip movies in a card-based interface.
+Each movie card displays key information about a movie, including the poster, title, release date, and a brief overview.
+The layout and functionality are inspired by a “Tinder-like” swiping interface, enabling a streamlined and engaging movie
+discovery experience.
+
+Core Functionalities:
+1: Movie Data Loading:
+Movies are loaded from an external API (e.g., The Movie Database API) and passed to the template engine using Jinja.
+Each movie includes the following attributes: title, poster (URL to the movie poster), overview (brief description), and release_date.
+
+2: Dynamic Movie Card Display:
+The main interface displays only one movie at a time, with options to skip or like each movie.
+Each card shows:
+The movie poster as the background image, covering the entire card area.
+The title, release date, and a truncated overview text displayed over the poster at the bottom, with a semi-transparent overlay for readability.
+Movies automatically update to the next one upon skipping or liking.
+
+3: Skip and Like Functionality:
+Skip Button: Moves to the next movie in the list without saving the movie as a liked item.
+Like Button: Logs the movie as liked (for future development, liked movies can be saved to a database or displayed on a "Likes" page).
+The buttons utilize JavaScript functions to update the currently displayed movie dynamically.
+
+4: Overview Text Truncation with "More" Option:
+The overview text is limited to 100 characters by default.
+If the description exceeds 100 characters, a "More" button appears, allowing the user to expand and view the full text.
+Users can toggle between "More" and "Less" to show or hide the full overview text.
+
+5: Responsive and Interactive UI:
+The program leverages Tailwind CSS for styling, ensuring a responsive layout that adjusts to various screen sizes.
+Hover and transition effects are added to buttons and cards to enhance the user experience.
+
+6: Looped Movie Display:
+Once the user reaches the end of the movie list, the program will loop back to the first movie, allowing continuous browsing.
+
+7: Dynamic Data Binding:
+JavaScript manages data updates, reloading the movie card content from the list of movies in real-time without requiring a page refresh.
+The program passes the movies list from the Flask backend to the frontend using Jinja templating and JSON, making the data accessible for dynamic interaction.
